@@ -11,7 +11,7 @@
     char *tipo_cpu;
 } cpu;
 
-void crearPc(cpu *pc, char tipos[6][10]);
+void crearPc(cpu *pc, char * tipos);
 void MostrarPc(cpu *pc);
 
 
@@ -22,24 +22,27 @@ int main(){
                         "Athlon",
                         "Core",
                         "Pentium"};
+                       
     int n;
     cpu computadora;
 
-    crearPc(&computadora,tipos[6][10]);
+    int cant = rand() % (6);
+    crearPc(&computadora,tipos[cant]);
     MostrarPc(&computadora);
 
     system("pause");
     return 0;
 }
 
-void crearPc(cpu *pc, char tipos[6][10]){
-    int cant = rand() % (6-1+1);
+void crearPc(cpu *pc, char * tipos){
+    int cant = rand() % (6);
 
     pc->anio = rand() % (2017 - 2000 + 1);
     pc->cantidad = rand() % (4 - 1 + 1);
     pc->velocidad = rand() % (3 - 1 + 1);
-    pc->tipo_cpu = tipos[cant];
-
+    int tamanioCadena = strlen(tipos);
+    pc->tipo_cpu = (char *) malloc(sizeof(char) * tamanioCadena);
+    strcpy(pc->tipo_cpu,tipos);    
 }
 
 
